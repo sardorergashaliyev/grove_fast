@@ -13,6 +13,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   List<ProductModel?>? lifOfProduct = [];
+  List<dynamic> listOfCategories = [];
   bool isLoading = true;
   bool isHorizontal = true;
 
@@ -25,6 +26,7 @@ class _ProductPageState extends State<ProductPage> {
   getInformation() async {
     isLoading = true;
     lifOfProduct = await GetInfo.getProduct();
+    listOfCategories = await GetInfo.getCotegory();
     isLoading = false;
     setState(() {});
   }
@@ -47,16 +49,19 @@ class _ProductPageState extends State<ProductPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 16, horizontal: 24),
                         shrinkWrap: true,
-                        itemCount: 10,
+                        itemCount: listOfCategories.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return Container(
-                              margin: const EdgeInsets.only(right: 8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: Style.bgCategory),
-                              padding: const EdgeInsets.all(8),
-                              child: Center(child: Text("category $index")));
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Style.bgCategory),
+                            padding: const EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(listOfCategories[index] ?? 'asdf'),
+                            ),
+                          );
                         }),
                   ),
                   Padding(

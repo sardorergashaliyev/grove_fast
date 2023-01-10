@@ -3,6 +3,7 @@ import 'package:grove_fast/model/model.dart';
 import 'package:grove_fast/repositories/get_info.dart';
 import 'package:grove_fast/style/style.dart';
 import 'package:grove_fast/unit/horizontal_product.dart';
+import 'package:grove_fast/unit/vertikal_product.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -14,6 +15,9 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   List<ProductModel?>? lifOfProduct = [];
   List<dynamic> listOfCategories = [];
+  String categori = 'jewelery';
+  dynamic newListProduct;
+
   bool isLoading = true;
   bool isHorizontal = true;
 
@@ -26,6 +30,7 @@ class _ProductPageState extends State<ProductPage> {
   getInformation() async {
     isLoading = true;
     lifOfProduct = await GetInfo.getProduct();
+    newListProduct = await GetInfo.getOnly(category: categori);
     listOfCategories = await GetInfo.getCotegory();
     isLoading = false;
     setState(() {});
@@ -46,13 +51,24 @@ class _ProductPageState extends State<ProductPage> {
                   SizedBox(
                     height: 100,
                     child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16, horizontal: 24),
-                        shrinkWrap: true,
-                        itemCount: listOfCategories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 24),
+                      shrinkWrap: true,
+                      itemCount: listOfCategories.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () async {
+                            isLoading = true;
+                            setState(() {});
+                            lifOfProduct = await GetInfo.getOnly(
+                                category: listOfCategories[index].toString());
+                            isLoading = false;
+                            // ignore: avoid_print
+                            print('newListProduct: $lifOfProduct');
+                            setState(() {});
+                          },
+                          child: Container(
                             margin: const EdgeInsets.only(right: 8),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
@@ -61,8 +77,10 @@ class _ProductPageState extends State<ProductPage> {
                             child: Center(
                               child: Text(listOfCategories[index] ?? 'asdf'),
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -97,9 +115,10 @@ class _ProductPageState extends State<ProductPage> {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2),
-                          itemBuilder: (context, index) => const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Placeholder(),
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                                VerticalProduct(product: lifOfProduct?[index]),
                           ),
                         ),
                 ],

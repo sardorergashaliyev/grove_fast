@@ -12,9 +12,9 @@ class HorizontalProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24), color: Style.bgCategory),
+          borderRadius: BorderRadius.circular(24), color: Style.bgProduct),
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 12, left: 24, right: 24),
       child: Row(
         children: [
           Padding(

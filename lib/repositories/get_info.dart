@@ -13,7 +13,7 @@ abstract class GetInfo {
       return productModelFromJson(res.body);
     } catch (e) {
       // ignore: avoid_print
-      print(e);
+      print('error1: $e');
     }
     return null;
   }
@@ -25,7 +25,22 @@ abstract class GetInfo {
       return jsonDecode(res.body);
     } catch (e) {
       // ignore: avoid_print
-      print(e);
+      print('error2: $e');
+    }
+    return [];
+  }
+
+  static Future<List<ProductModel?>?> getOnly({required String category}) async {
+    try {
+      final url =
+          Uri.parse("https://fakestoreapi.com/products/category/$category");
+      final res = await http.get(url);
+      print(res.body);
+      return productModelFromJson(res.body) ?? [];
+      
+    } catch (e) {
+      // ignore: avoid_print
+      print('error3: $e');
     }
     return [];
   }

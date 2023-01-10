@@ -8,5 +8,6 @@ abstract class Style {
   static const white = Colors.white;
   static const black = Colors.black;
   static const bgCategory = Color(0xffF3E9DD);
+  static const bgProduct = Color(0xffF1F4F3);
   static Color shimmerBase = Colors.grey.shade300;
 }

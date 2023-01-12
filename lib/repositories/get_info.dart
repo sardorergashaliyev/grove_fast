@@ -35,7 +35,7 @@ abstract class GetInfo {
       final url =
           Uri.parse("https://fakestoreapi.com/products/category/$category");
       final res = await http.get(url);
-      print(res.body);
+      // ignore: avoid_print
       return productModelFromJson(res.body) ?? [];
       
     } catch (e) {

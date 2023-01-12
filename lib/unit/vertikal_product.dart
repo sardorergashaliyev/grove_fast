@@ -24,17 +24,21 @@ class VerticalProduct extends StatelessWidget {
             height: 80,
             width: 80,
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(),
-                  child: Text(product?.title ?? ""),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(),
+                child: Text(
+                  product?.title ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  maxLines: 2,
                 ),
-                Text((product?.price ?? 0).toString()),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+              Text((product?.price ?? 0).toString()),
+            ],
           ),
         ],
       ),

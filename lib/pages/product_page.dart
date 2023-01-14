@@ -17,7 +17,7 @@ class _ProductPageState extends State<ProductPage> {
   List<dynamic> listOfCategories = [];
   String categori = 'jewelery';
   dynamic newListProduct;
-
+  bool isSelected = false;
   bool isLoading = true;
   bool isHorizontal = true;
 
@@ -47,48 +47,13 @@ class _ProductPageState extends State<ProductPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Image.asset(
-                            'assets/avatar.png',
-                            height: 40,
-                            width: 40,
-                          ),
-                        ),
-                        Container(
-                          height: 40,
-                          width: 130,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Style.greyColor),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text('Yona\'s home'),
-                                Icon(Icons.arrow_drop_down)
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30),
-                          child: Image.asset(
-                            'assets/active.png',
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: Text(
+                        'Categories',
+                        style: Style.textStyleSemiBold(size: 18),
+                      ),
                     ),
-                    const SizedBox(height: 50),
                     SizedBox(
                       height: 100,
                       child: ListView.builder(
@@ -106,10 +71,16 @@ class _ProductPageState extends State<ProductPage> {
                                   category: listOfCategories[index].toString());
                               isLoading = false;
                               setState(() {});
+                              isSelected = true;
                             },
                             child: Container(
                               margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? Style.mediumGreen
+                                        : Style.transparent,
+                                  ),
                                   borderRadius: BorderRadius.circular(16),
                                   color: Style.bgCategory),
                               padding: const EdgeInsets.all(8),
@@ -126,7 +97,10 @@ class _ProductPageState extends State<ProductPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("All Product"),
+                          Text(
+                            "All Product",
+                            style: Style.textStyleSemiBold(size: 18),
+                          ),
                           IconButton(
                             onPressed: () {
                               isHorizontal = !isHorizontal;

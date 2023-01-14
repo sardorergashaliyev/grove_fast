@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grove_fast/pages/card_page.dart';
-import 'package:grove_fast/pages/pesrons_page.dart';
-import 'package:grove_fast/pages/products_page.dart';
-import 'package:grove_fast/pages/profile_page.dart';
 import 'package:grove_fast/style/style.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,35 +9,67 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectIndex = 0;
-
-  List<Widget> list = [
-    const ProductPage(),
-    const PersonsPage(),
-    const CardPage(),
-    const ProfilePage()
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: list[selectIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        selectedIconTheme: const IconThemeData(color: Style.primaryColor),
-        unselectedIconTheme: const IconThemeData(color: Style.greyColor),
-        currentIndex: selectIndex,
-        onTap: (value) {
-          selectIndex = value;
-          setState(() {});
-        },
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.group), label: ""),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "")
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Image.asset(
+                      'assets/avatar.png',
+                      height: 40,
+                      width: 40,
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Style.greyColor),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'Yona\'s home',
+                            style: Style.textStyleNormal(
+                                size: 12, color: Style.greyColor),
+                          ),
+                          const Icon(
+                            Icons.arrow_drop_down,
+                            color: Style.greyColor,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30),
+                    child: Image.asset(
+                      'assets/active.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 50),
+            ],
+          ),
+        ),
       ),
     );
   }

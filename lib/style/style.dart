@@ -10,9 +10,20 @@ abstract class Style {
   static const bgCategory = Color(0xffF3E9DD);
   static const bgProduct = Color(0xffF1F4F3);
   static const darkGreen = Color(0xff194B38);
+  static const mediumGreen = Color(0xff2AAF7F);
+  static const transparent = Colors.transparent;
+  static const like = Color(0xffEC534A);
   static Color shimmerBase = Colors.grey.shade300;
 
-  textStyleF({int size = 12, Color color = darkGreen}) {
-    return TextStyle(color: color, fontSize: size.toDouble());
+  static textStyleNormal({int size = 12, Color color = darkGreen, num fontWeigth = 400}) {
+    return TextStyle(color: color, fontSize: size.toDouble(), fontWeight: FontWeight.w400);
+  }
+
+  static textStyleSemiBold({int size = 12, Color color = darkGreen, num fontWeigth = 400}) {
+    return TextStyle(color: color, fontSize: size.toDouble(), fontWeight: FontWeight.w600);
+  }
+
+  static textStyleBold({int size = 12, Color color = darkGreen, num fontWeigth = 400}) {
+    return TextStyle(color: color, fontSize: size.toDouble(), fontWeight: FontWeight.bold);
   }
 }

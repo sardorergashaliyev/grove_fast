@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grove_fast/pages/home_page.dart';
+import 'package:grove_fast/pages/control_page.dart';
 
 void main(List<String> args) {
   runApp(const MainPage());
@@ -12,7 +12,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: ContolPage(),
     );
   }
 }

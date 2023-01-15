@@ -13,6 +13,9 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(decoration: TextDecoration.none),
+        ),
         bottomSheetTheme: const BottomSheetThemeData(
           backgroundColor: Style.transparent,
         ),

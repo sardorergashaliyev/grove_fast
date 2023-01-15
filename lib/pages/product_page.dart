@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grove_fast/model/model.dart';
-import 'package:grove_fast/repositories/get_info.dart';
+import 'package:grove_fast/unit/repositories/get_info.dart';
 import 'package:grove_fast/style/style.dart';
 import 'package:grove_fast/unit/horizontal_product.dart';
 import 'package:grove_fast/unit/vertikal_product.dart';
@@ -134,7 +134,9 @@ class _ProductPageState extends State<ProductPage> {
                                 itemCount: lifOfProduct?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return HorizontalProduct(
-                                      product: lifOfProduct?[index]);
+                                    product: lifOfProduct?[index],
+                                    index: index,
+                                  );
                                 },
                               )
                             : GridView.builder(
@@ -147,7 +149,7 @@ class _ProductPageState extends State<ProductPage> {
                                 itemBuilder: (context, index) => Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: VerticalProduct(
-                                      product: lifOfProduct?[index]),
+                                      product: lifOfProduct?[index], index: index,),
                                 ),
                               ),
                   ],

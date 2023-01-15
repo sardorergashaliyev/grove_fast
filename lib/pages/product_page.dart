@@ -19,6 +19,8 @@ class _ProductPageState extends State<ProductPage> {
   dynamic newListProduct;
   bool isSelected = false;
   bool isLoading = true;
+  int? currentCategory;
+  bool isProductLoading = false;
   bool isHorizontal = true;
 
   @override
@@ -33,6 +35,16 @@ class _ProductPageState extends State<ProductPage> {
     newListProduct = await GetInfo.getOnly(category: categori);
     listOfCategories = await GetInfo.getCotegory();
     isLoading = false;
+    setState(() {});
+  }
+
+  getProductByCategory([String? title]) async {
+    isProductLoading = true;
+    setState(() {});
+    lifOfProduct = title != null
+        ? await GetInfo.getOnly(category: title)
+        : await GetInfo.getProduct();
+    isProductLoading = false;
     setState(() {});
   }
 
@@ -65,27 +77,29 @@ class _ProductPageState extends State<ProductPage> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () async {
-                              isLoading = true;
-                              setState(() {});
-                              lifOfProduct = await GetInfo.getOnly(
-                                  category: listOfCategories[index].toString());
-                              isLoading = false;
-                              setState(() {});
-                              isSelected = true;
+                              if (currentCategory == index) {
+                                currentCategory = null;
+                                getProductByCategory();
+                              } else {
+                                getProductByCategory(listOfCategories[index]);
+                                currentCategory = index;
+                              }
                             },
                             child: Container(
                               margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: isSelected
-                                        ? Style.mediumGreen
+                                    color: currentCategory == index
+                                        ? Style.primaryColor
                                         : Style.transparent,
                                   ),
                                   borderRadius: BorderRadius.circular(16),
-                                  color: Style.bgCategory),
+                                  color: currentCategory == index
+                                      ? Style.mediumGreen.withOpacity(0.3)
+                                      : Style.bgCategory),
                               padding: const EdgeInsets.all(8),
                               child: Center(
-                                child: Text(listOfCategories[index] ?? 'asdf'),
+                                child: Text(listOfCategories[index] ?? 'error'),
                               ),
                             ),
                           );
@@ -111,29 +125,31 @@ class _ProductPageState extends State<ProductPage> {
                         ],
                       ),
                     ),
-                    isHorizontal
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: lifOfProduct?.length ?? 0,
-                            itemBuilder: (context, index) {
-                              return HorizontalProduct(
-                                  product: lifOfProduct?[index]);
-                            },
-                          )
-                        : GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: lifOfProduct?.length ?? 0,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
-                            itemBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: VerticalProduct(
-                                  product: lifOfProduct?[index]),
-                            ),
-                          ),
+                    isProductLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : isHorizontal
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: lifOfProduct?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  return HorizontalProduct(
+                                      product: lifOfProduct?[index]);
+                                },
+                              )
+                            : GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: lifOfProduct?.length ?? 0,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2),
+                                itemBuilder: (context, index) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: VerticalProduct(
+                                      product: lifOfProduct?[index]),
+                                ),
+                              ),
                   ],
                 ),
               ),

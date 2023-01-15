@@ -25,7 +25,10 @@ class _ContolPageState extends State<ContolPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: list[selectIndex],
+      body: IndexedStack(
+        index: selectIndex,
+        children: list,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedIconTheme: const IconThemeData(color: Style.primaryColor),
         unselectedIconTheme: const IconThemeData(color: Style.greyColor),

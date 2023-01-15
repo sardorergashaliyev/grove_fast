@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             'Yona\'s home',
                             style: Style.textStyleNormal(
-                                size: 12, color: Style.greyColor),
+                                size: 14, color: Style.greyColor),
                           ),
                           const Icon(
                             Icons.arrow_drop_down,
@@ -66,11 +66,138 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 39),
+              Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: Text(
+                  'Hey Yona 👋🏻',
+                  style: Style.textStyleBold(size: 32),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: Text(
+                  'Find fresh groceries you want',
+                  style: Style.textStyleBold(size: 18, color: Style.greyColor),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 250,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.search,
+                            color: Style.primaryColor,
+                          ),
+                          labelText: ('Search fresh groceries'),
+                          labelStyle: Style.textStyleNormal(
+                            color: Style.mediumGreen,
+                            size: 14,
+                          ),
+                          filled: true,
+                          fillColor: Style.textInput,
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Style.textInput),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(18),
+                            ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Style.textInput),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(18),
+                            ),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Style.textInput),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(18),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                      
+                          builder: (context) {
+                            return Container();
+                          },
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/scan_button.png',
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              SizedBox(
+                height: 160,
+                child: ListView.builder(
+                  itemCount: 2,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: const EdgeInsets.only(left: 24),
+                      height: 150,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Style.lightGreen,
+                        borderRadius: BorderRadius.circular(28),
+                      ),
+                      child: Image.asset(
+                        'assets/background.png',
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
+              )
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class RPSCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
+    Path path0 = Path();
+    path0.moveTo(size.width * 0.4158333, size.height * 0.3568571);
+    path0.lineTo(size.width * 0.4185000, size.height * 0.6431429);
+    path0.lineTo(size.width * 0.5851667, size.height * 0.6431429);
+    path0.quadraticBezierTo(size.width * 0.5846667, size.height * 0.4282143,
+        size.width * 0.5845000, size.height * 0.3565714);
+    path0.quadraticBezierTo(size.width * 0.5016667, size.height * 0.3006429,
+        size.width * 0.4158333, size.height * 0.3568571);
+    path0.close();
+
+    canvas.drawPath(path0, paint0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
